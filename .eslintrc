@@ -1,0 +1,27 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+
+  "rules": {
+    "quotes": [2, "single", "avoid-escape"],
+    "semi": [2, "never"],
+    "strict": [2, "global"],
+    "linebreak-style": [2, "unix"],
+    "no-mixed-spaces-and-tabs": 2,
+    "no-spaced-func": 2,
+    "no-trailing-spaces": 2,
+    "no-underscore-dangle": 2,
+    "no-unused-expressions": 2,
+    "no-array-constructor": 2,
+    "eol-last": 2,
+    "block-scoped-var": 2,
+    "no-else-return": 2,
+    "no-floating-decimal": 2,
+    "no-self-compare": 2,
+    "space-before-function-paren": 2
+  }
+}
+
