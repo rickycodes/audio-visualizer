@@ -2,7 +2,9 @@
 
 Audio equalizer built with HTML5 web audio API:
 
-![equalizer](http://i.imgur.com/G8Bf0rG.gif)
+<a target='_blank' href='http://rickycodes.github.io/audio-equalizer/'><img src='http://i.imgur.com/QjZYm3h.gif' /></a>
+
+<a target='_blank' href='http://rickycodes.github.io/audio-equalizer/'>demo!</a>
 
 ## install
 
