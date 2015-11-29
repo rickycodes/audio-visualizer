@@ -1,6 +1,6 @@
 'use strict'
 
-const binCount = 256
+const binCount = 128
 const SpectrumAnalyzer = require('spectrum-analyzer')
 const analyzer = new SpectrumAnalyzer('https://raw.githubusercontent.com/rickycodes/tones/master/futurecop.mp3', binCount, 0.80)
 const lines = []
@@ -9,15 +9,15 @@ function animate () {
   var data = analyzer.getFrequencyData()
   analyzer.updateSample()
   lines.forEach(function (line, i) {
-    line.style.height = data[i] + 'px'
+    line.style.transform = 'scaleY(' + data[i] * 0.02 + ')'
   })
   requestAnimationFrame(animate)
 }
 
 function setup () {
   var xPos = 0
-  const width = 5
-  const space = 0
+  const width = 8
+  const space = 1
   const target = document.getElementsByClassName('container')[0]
   for (var i = 0; i < binCount; i++) {
     var line = document.createElement('div')
