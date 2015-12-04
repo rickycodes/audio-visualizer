@@ -6,6 +6,10 @@ const SpectrumAnalyzer = require('spectrum-analyzer')
 const analyzer = new SpectrumAnalyzer('https://raw.githubusercontent.com/rickycodes/tones/master/futurecop.mp3', binCount, 0.80)
 
 var camera, group, scene, renderer
+var mouseX = 0
+var mouseY = 0
+var windowHalfX = window.innerWidth / 2
+var windowHalfY = window.innerHeight / 2
 
 function animate () {
   render()
@@ -13,18 +17,27 @@ function animate () {
 }
 
 function render () {
+  camera.position.x += (mouseX - camera.position.x) * 0.05
+  camera.position.y += (-mouseY - camera.position.y) * 0.05
+  camera.lookAt(scene.position)
   var data = analyzer.getFrequencyData()
   analyzer.updateSample()
-  camera.lookAt(scene)
   group.children.forEach(function (child, i) {
     if (data[i] !== 0) {
-      child.scale.z = data[i] * 0.08
+      var zscale = data[i] * 0.08
+      child.scale.z = zscale
     }
   })
   renderer.render(scene, camera)
 }
 
+function mouseMove (e) {
+  mouseX = (e.clientX - windowHalfX) * 10
+  mouseY = (e.clientY - windowHalfY) * 10
+}
+
 function setup () {
+  document.addEventListener('mousemove', mouseMove)
   var xPos = 0
   var yPos = 0
   const width = 100
@@ -41,12 +54,8 @@ function setup () {
 
   var geometry = new THREE.BoxGeometry(width, width, width)
 
-  var color = 0x001EFF
-
-  console.log(color)
-
   for (var i = 1; i < binCount; i++) {
-    var material = new THREE.MeshPhongMaterial({ color: i * color })
+    var material = new THREE.MeshPhongMaterial({ color: i * 0x001EFF })
     var object = new THREE.Mesh(geometry, material)
 
     object.position.x = xPos
@@ -54,7 +63,7 @@ function setup () {
 
     xPos += width + space
 
-    if ((i % Math.sqrt(binCount)) === 0) {
+    if ((i % Math.floor(Math.sqrt(binCount))) === 0) {
       xPos = 0
       yPos -= width + space
     }
