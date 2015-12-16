@@ -52,6 +52,10 @@
 	const analyzer = new SpectrumAnalyzer('https://raw.githubusercontent.com/rickycodes/tones/master/futurecop.mp3', binCount, 0.80)
 
 	var camera, group, scene, renderer
+	var mouseX = 0
+	var mouseY = 0
+	var windowHalfX = window.innerWidth / 2
+	var windowHalfY = window.innerHeight / 2
 
 	function animate () {
 	  render()
@@ -59,18 +63,27 @@
 	}
 
 	function render () {
+	  camera.position.x += (mouseX - camera.position.x) * 0.05
+	  camera.position.y += (-mouseY - camera.position.y) * 0.05
+	  camera.lookAt(scene.position)
 	  var data = analyzer.getFrequencyData()
 	  analyzer.updateSample()
-	  camera.lookAt(scene)
 	  group.children.forEach(function (child, i) {
 	    if (data[i] !== 0) {
-	      child.scale.z = data[i] * 0.08
+	      var zscale = data[i] * 0.08
+	      child.scale.z = zscale
 	    }
 	  })
 	  renderer.render(scene, camera)
 	}
 
+	function mouseMove (e) {
+	  mouseX = (e.clientX - windowHalfX) * 10
+	  mouseY = (e.clientY - windowHalfY) * 10
+	}
+
 	function setup () {
+	  document.addEventListener('mousemove', mouseMove)
 	  var xPos = 0
 	  var yPos = 0
 	  const width = 100
@@ -87,12 +100,8 @@
 
 	  var geometry = new THREE.BoxGeometry(width, width, width)
 
-	  var color = 0x001EFF
-
-	  console.log(color)
-
 	  for (var i = 1; i < binCount; i++) {
-	    var material = new THREE.MeshPhongMaterial({ color: i * color })
+	    var material = new THREE.MeshPhongMaterial({ color: i * 0x001EFF })
 	    var object = new THREE.Mesh(geometry, material)
 
 	    object.position.x = xPos
@@ -100,7 +109,7 @@
 
 	    xPos += width + space
 
-	    if ((i % Math.sqrt(binCount)) === 0) {
+	    if ((i % Math.floor(Math.sqrt(binCount))) === 0) {
 	      xPos = 0
 	      yPos -= width + space
 	    }
@@ -131,9 +140,6 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	/////////////////////////////////
-	// Spectrum Analyser
-	/////////////////////////////////
 	'use strict'
 
 	// https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
@@ -148,7 +154,6 @@
 	  audio.play()
 
 	  audio.addEventListener('ended', function (e) {
-	    // console.log('loop!')
 	    this.currentTime = 0
 	    this.play()
 	  })
@@ -164,7 +169,6 @@
 
 	SpectrumAnalyzer.prototype = {
 	  setSource: function (source) {
-	    //this.source = source
 	    this.source = this.context.createMediaElementSource(source)
 	    this.source.connect(this.analyzerNode)
 	    this.analyzerNode.connect(this.context.destination)
@@ -189,7 +193,7 @@
 	  getTimeData: function () {
 	    return this.timeByteData
 	  },
-	  // not save if out of bounds
+
 	  getAverage: function (index, count) {
 	    var total = 0
 	    var start = index || 0
@@ -201,7 +205,8 @@
 
 	    return total / (end - start)
 	  },
-	  getAverageFloat:function (index, count) {
+
+	  getAverageFloat: function (index, count) {
 	    return this.getAverage(index, count) / 255
 	  },
 
