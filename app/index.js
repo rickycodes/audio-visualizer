@@ -1,5 +1,4 @@
 /*global THREE requestAnimationFrame*/
-'use strict'
 
 const binCount = 256
 const SpectrumAnalyzer = require('spectrum-analyzer')
