@@ -45,7 +45,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	/*global THREE requestAnimationFrame*/
-	'use strict'
 
 	const binCount = 256
 	const SpectrumAnalyzer = __webpack_require__(1)
@@ -139,9 +138,6 @@
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
-
-	'use strict'
-
 	// https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
 	const SpectrumAnalyzer = module.exports = function (track, binCount, smoothingTimeConstant) {
 	  var audio = document.createElement('audio')

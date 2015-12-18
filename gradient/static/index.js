@@ -44,8 +44,6 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict'
-
 	const binCount = 256
 	const SpectrumAnalyzer = __webpack_require__(1)
 	const analyzer = new SpectrumAnalyzer('https://raw.githubusercontent.com/rickycodes/tones/master/futurecop.mp3', binCount, 0.80)
@@ -85,11 +83,6 @@
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
-
-	/////////////////////////////////
-	// Spectrum Analyser
-	/////////////////////////////////
-	'use strict'
 
 	// https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode
 	const SpectrumAnalyzer = module.exports = function (track, binCount, smoothingTimeConstant) {
@@ -144,7 +137,7 @@
 	  getTimeData: function () {
 	    return this.timeByteData
 	  },
-	  // not save if out of bounds
+
 	  getAverage: function (index, count) {
 	    var total = 0
 	    var start = index || 0
