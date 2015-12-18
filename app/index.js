@@ -1,5 +1,3 @@
-'use strict'
-
 const binCount = 256
 const SpectrumAnalyzer = require('spectrum-analyzer')
 const analyzer = new SpectrumAnalyzer('https://raw.githubusercontent.com/rickycodes/tones/master/futurecop.mp3', binCount, 0.80)
