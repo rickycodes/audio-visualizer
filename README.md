@@ -1,5 +1,7 @@
 ## audio visualizer
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/rickycodes/audio-visualizer.svg)](https://greenkeeper.io/)
+
 Audio visualizer built with HTML5 web audio API:
 
 ## examples
